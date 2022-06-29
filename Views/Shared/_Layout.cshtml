@@ -1,0 +1,133 @@
+﻿@{
+    var tempNIK = TempData["NIK"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>SEWANTUL 2022</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Styles/BoostrapTheme/assets/img/favicon.png" rel="icon">
+    <link href="~/Styles/BoostrapTheme/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Styles/BoostrapTheme/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="~/Styles/BoostrapTheme/assets/css/style.css" rel="stylesheet">
+    <script type="text/javascript">
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+    </script>
+</head>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="@Url.Action("Index", "Home")" class="logo d-flex align-items-center">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">SEWANTUL</span>
+            </a>
+            @* <i class="bi bi-list toggle-sidebar-btn"></i>*@
+        </div><!-- End Logo -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+
+
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <div id="wrapper" class="sidebar">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav" id="sidebar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "Beranda")">
+                        <i class="bi bi-person-workspace"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "User")">
+                        <i class="bi bi-person"></i>
+                        <span>User</span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "Evakuasi")">
+                        <i class="bx bxs-map-alt"></i>
+                        <span>Evakuasi</span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
+                                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "Wisata")">
+                        <i class="bx bx-compass"></i>
+                        <span>Wisata</span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
+                
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "Auth")">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>Logout</span>
+                    </a>
+                </li><!-- End Login Page Nav -->
+
+
+            </ul>
+        </div>
+    </div><!-- End Sidebar-->
+
+    <main id="main" class="main">
+        @RenderBody()
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>SEWANTUL</span></strong> 2022
+        </div>
+
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Styles/BoostrapTheme/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/chart.js/chart.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/quill/quill.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    @* <script src="~/Styles/BoostrapTheme/assets/vendor/tinymce/tinymce.min.js"></script>*@
+    <script src="~/Styles/BoostrapTheme/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Styles/BoostrapTheme/assets/js/main.js"></script>
+
+</body>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</html>
