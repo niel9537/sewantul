@@ -24,5 +24,14 @@ namespace PaceWeb.Controllers
             ViewBag.wisata = x;
             return View();
         }
+        public ActionResult Wisata(string id)
+        {
+            var x = RestClient.GetWisata2().Find(y => y.id.Equals(id.ToString()));
+            ViewBag.foto = x.foto;
+            ViewBag.nama = x.nama;
+            ViewBag.jumlah = x.jumlah_pengunjung;
+            ViewBag.keterangan = x.keterangan;
+            return View("Wisata");
+        }
     }
 }

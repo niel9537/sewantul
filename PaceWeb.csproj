@@ -181,6 +181,7 @@
     <Content Include="Views\Evakuasi\Index.cshtml" />
     <Content Include="Views\Wisata\Index.cshtml" />
     <Content Include="Views\Landing\Index.cshtml" />
+    <Content Include="Views\Landing\Wisata.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

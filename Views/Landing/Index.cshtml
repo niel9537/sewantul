@@ -46,7 +46,7 @@
                     <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
                     @*                    <li><a class="nav-link scrollto" href="#about">About</a></li>*@
                     @*                    <li><a class="nav-link scrollto" href="#services">Services</a></li>*@
-                    <li><a class="nav-link scrollto" href="#portfolio">Wisata</a></li>
+                    <li><a class="nav-link scrollto" href="#recent-blog-posts">Wisata</a></li>
                     <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
 @*                    <li><a class="nav-link scrollto" href="#team">Team</a></li>*@
                     <li><a href="blog.html">Blog</a></li>
@@ -87,7 +87,7 @@
                     <h2 data-aos="fade-up" data-aos-delay="400">Informasi terpecaya dan akurat</h2>
                 </div>
                 <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="assets/img/hero-img.png" class="img-fluid" alt="">
+                    <img src="~/Assets/back.png" class="img-fluid" alt="">
                 </div>
             </div>
         </div>
@@ -95,51 +95,64 @@
     </section><!-- End Hero -->
 
     <main id="main">
-        <!-- ======= Portfolio Section ======= -->
-        <section id="portfolio" class="portfolio">
+        <!-- ======= Recent Blog Posts Section ======= -->
+        <section id="recent-blog-posts" class="recent-blog-posts">
 
             <div class="container" data-aos="fade-up">
 
                 <header class="section-header">
-                    <h2>Daerah Wisata</h2>
-                    <p>Cek Daerah Wisata di Pantai Bantul</p>
+                    <h2>Blog</h2>
+                    <p>Recent posts form our Blog</p>
                 </header>
 
-                @*<div class="row" data-aos="fade-up" data-aos-delay="100">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <ul id="portfolio-flters">
-                    <li data-filter="*" class="filter-active">All</li>
-                    <li data-filter=".filter-app">App</li>
-                    <li data-filter=".filter-card">Card</li>
-                    <li data-filter=".filter-web">Web</li>
-                </ul>
-            </div>
-        </div>
-                *@
+                <div class="row">
+                    @foreach (var r in ViewBag.wisata)
+                    {
+                        <div class="col-lg-4">
+                            <div class="post-box">
+                                <div class="post-img"><img src="~/Assets/@r.foto" class="img-fluid" alt=""></div>
+                                <span class="post-date">@r.nama</span>
 
-            <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
-                @foreach (var r in ViewBag.wisata)
-                {
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-wrap">
-                            <img src="~/Assets/@r.foto" class="img-fluid" alt="">
-                            <div class="portfolio-info">
-                                <h4>@r.nama</h4>
-                                <p><i class="bi bi-people-fill"></i>@r.jumlah_pengunjung</p>
-                                <div class="portfolio-links">
-                                    <a href="portfolio-details.html" title="Lihat Detail"><i class="bi bi-link"></i></a>
-                                </div>
+                                <a href="@Url.Action("Wisata", "Landing", new { id = @r.id })" class="readmore stretched-link mt-auto"><span>Lebih Lanjut</span><i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>
-                    </div>
-                 }
 
+
+                    }
                 </div>
 
+            </div>
 
+        </section><!-- End Recent Blog Posts Section -->
+        <!-- ======= Recent Blog Posts Section ======= -->
+        <section id="recent-blog-postss" class="recent-blog-posts">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>Blog</h2>
+                    <p>Recent posts form our Blog</p>
+                </header>
+
+                <div class="row">
+                    @foreach (var r in ViewBag.wisata)
+                    {
+                        <div class="col-lg-4">
+                            <div class="post-box">
+                                <div class="post-img"><img src="~/Assets/@r.foto" class="img-fluid" alt=""></div>
+                                <span class="post-date">@r.nama</span>
+
+                                <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Lebih Lanjut</span><i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+
+                    }
                 </div>
 
-        </section><!-- End Portfolio Section -->
+            </div>
+
+        </section><!-- End Recent Blog Posts Section -->
         <!-- ======= Counts Section ======= -->
         <section id="counts" class="counts">
             <div class="container" data-aos="fade-up">
@@ -151,7 +164,7 @@
                             <i class="bi bi-emoji-smile"></i>
                             <div>
                                 <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Happy Clients</p>
+                                <p>Wisatawan</p>
                             </div>
                         </div>
                     </div>
@@ -207,12 +220,12 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
-                                        Non consectetur a erat nam at lectus urna duis?
+                                        Berapa lama perjalanan dari pusat kota menuju pantai?
                                     </button>
                                 </h2>
                                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                                     <div class="accordion-body">
-                                        Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                                        Untuk kendaraan bermotor jarak yang di tempuh sekitar 45 menit sampai 1 jam dengan perjalanan normal. Jika menggunakan kendaraan roda 4 maka jarak yang ditempuh sekitar 1 - 2 jam perjalanan.
                                     </div>
                                 </div>
                             </div>
@@ -220,28 +233,17 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                                        Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
+                                        Selain pantai, pemandangan apa saja yang dapat dinikmati di daerah pantai Bantul ?
                                     </button>
                                 </h2>
                                 <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                                     <div class="accordion-body">
-                                        Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                        Banyak sekali wisata yang dapat dikunjungi jika kita pergi ke daerah pantai Bantul. Contohnya seperti teras kaca, mengikuti nelayan di pantai kukup, dan juga baron hill.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                                        Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
-                                    </button>
-                                </h2>
-                                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                                    <div class="accordion-body">
-                                        Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                                    </div>
-                                </div>
-                            </div>
+
 
                         </div>
                     </div>
@@ -254,41 +256,17 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
-                                        Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                                        Apakah sekitar pantai bantul yang dapat digunakan untuk renang ?
                                     </button>
                                 </h2>
                                 <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                                     <div class="accordion-body">
-                                        Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                        Yoi Boy. Terdapat beberapa lokasi pantai yang dapat ditempati untuk berenang seperti pantai cemara, pantai kuaru dan juga pantai baru.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-2">
-                                        Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
-                                    </button>
-                                </h2>
-                                <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                                    <div class="accordion-body">
-                                        Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-3">
-                                        Varius vel pharetra vel turpis nunc eget lorem dolor?
-                                    </button>
-                                </h2>
-                                <div id="faq2-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                                    <div class="accordion-body">
-                                        Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -298,50 +276,6 @@
             </div>
 
         </section><!-- End F.A.Q Section -->
-        <!-- ======= Recent Blog Posts Section ======= -->
-        <section id="recent-blog-posts" class="recent-blog-posts">
-
-            <div class="container" data-aos="fade-up">
-
-                <header class="section-header">
-                    <h2>Blog</h2>
-                    <p>Recent posts form our Blog</p>
-                </header>
-
-                <div class="row">
-
-                    <div class="col-lg-4">
-                        <div class="post-box">
-                            <div class="post-img"><img src="~/Landings/assets/img/blog/blog-1.jpg" class="img-fluid" alt=""></div>
-                            <span class="post-date">Tue, September 15</span>
-                            <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit</h3>
-                            <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="post-box">
-                            <div class="post-img"><img src="~/Landings/assets/img/blog/blog-2.jpg" class="img-fluid" alt=""></div>
-                            <span class="post-date">Fri, August 28</span>
-                            <h3 class="post-title">Et repellendus molestiae qui est sed omnis voluptates magnam</h3>
-                            <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="post-box">
-                            <div class="post-img"><img src="~/Landings/~/Landings/assets/img/blog/blog-3.jpg" class="img-fluid" alt=""></div>
-                            <span class="post-date">Mon, July 11</span>
-                            <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
-                            <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section><!-- End Recent Blog Posts Section -->
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
 
@@ -389,7 +323,7 @@
 
                     </div>
 
-                  
+
                 </div>
 
             </div>
