@@ -73,6 +73,15 @@ namespace PaceWeb.Helpers
             var data = response.Data.Wisata.ToList();
             return data;
         }
+        public List<Evakuasi> GetEvakuasi2()
+        {
+            var client = new RestClient(baseURL);
+            var request = new RestRequest("landing/getEvakuasi", Method.GET);
+            var response = client.Execute<EvakuasiModel>(request);
+            Console.WriteLine(response.Content);
+            var data = response.Data.Evakuasi.ToList();
+            return data;
+        }
         public string SaveWisata(string token, string nama, string alamat, string longitude, string lattitude, string foto, string keterangan, string jumlah_pengunjung)
         {
             string res;
@@ -188,7 +197,7 @@ namespace PaceWeb.Helpers
             request.AddHeader("Authorization", "Bearer " + token);
             var response = client.Execute<EvakuasiModel>(request);
             Console.WriteLine(response.Content);
-            var data = response.Data.evakuasi.ToList();
+            var data = response.Data.Evakuasi.ToList();
             return data;
         }
         public string SaveEvakuasi(string token, string nama, string alamat, string longitude, string lattitude, string foto, string keterangan)

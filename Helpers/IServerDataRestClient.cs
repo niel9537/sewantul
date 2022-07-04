@@ -11,6 +11,8 @@ namespace PaceWeb.Helpers
     {
         //Get Wisata Landing
         List<Wisata> GetWisata2();
+        //Get Evakuasi Landing
+        List<Evakuasi> GetEvakuasi2();
         //Get List Users
         List<User> GetUsers(string token);
         //Get List Evakuasi
