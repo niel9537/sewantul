@@ -38,10 +38,10 @@
                 map.setView({ bounds: suggestionResult.bestView });
                 var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
                 map.entities.push(pushpin);
-                document.getElementById('printoutPanel').innerHTML =
-                    'Suggestion: ' + suggestionResult.formattedSuggestion +
+                document.getElementById('printoutPanel').innerHTML = suggestionResult.location.latitude;
+@*                    'Suggestion: ' + suggestionResult.formattedSuggestion +
                     '<br> Lat: ' + suggestionResult.location.latitude +
-                    '<br> Lon: ' + suggestionResult.location.longitude;
+                    '<br> Lon: ' + suggestionResult.location.longitude;*@
             }
 
         }

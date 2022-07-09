@@ -31,7 +31,12 @@ namespace PaceWeb.Controllers
 
             ViewBag.wisata = x;
             ViewBag.evakuasi = y;
-            
+            var total = x.Sum(e => Int32.Parse(e.jumlah_pengunjung));
+            var lokasievakuasi = y.Count;
+            var lokasiwisata = x.Count;
+            ViewBag.totalwisatawan = total;
+            ViewBag.totallokasievakuasi = lokasievakuasi;
+            ViewBag.totallokasiwisata = lokasiwisata;
             return View();
         }
         public JsonResult LokasiEvakuasiTerdekat()
