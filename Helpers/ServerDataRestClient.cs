@@ -304,7 +304,7 @@ namespace PaceWeb.Helpers
             return res;
 
         }
-        public string SaveUsers(string token,string username, string password, string nama, string email, string alamat, string notelp, string jeniskelamin)
+        public string SaveUsers(string token, string foto, string username, string password, string nama, string email, string alamat, string notelp, string jeniskelamin)
         {
             string res;
             string baseURL = ConfigurationManager.AppSettings["baseURL"];
@@ -312,6 +312,7 @@ namespace PaceWeb.Helpers
             var request = new RestRequest("user/addUsers", Method.POST);
             var config = new
             {
+                foto = foto,
                 username = username,
                 password = password,
                 nama = nama,
@@ -321,6 +322,7 @@ namespace PaceWeb.Helpers
                 jeniskelamin = jeniskelamin
             };
             request.AddHeader("Authorization", "Bearer " + token);
+            request.AddParameter("foto", config.foto, ParameterType.GetOrPost);
             request.AddParameter("username", config.username, ParameterType.GetOrPost);
             request.AddParameter("password", config.password, ParameterType.GetOrPost);
             request.AddParameter("nama", config.nama, ParameterType.GetOrPost);

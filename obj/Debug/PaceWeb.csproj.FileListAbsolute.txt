@@ -83,4 +83,3 @@ D:\Project\PaceWeb\PaceWeb\obj\Debug\PaceWeb.csproj.CoreCompileInputs.cache
 D:\Project\PaceWeb\PaceWeb\obj\Debug\PaceWeb.csproj.CopyComplete
 D:\Project\PaceWeb\PaceWeb\obj\Debug\PaceWeb.dll
 D:\Project\PaceWeb\PaceWeb\obj\Debug\PaceWeb.pdb
-D:\Project\PaceWeb\PaceWeb\obj\Debug\PaceWeb.csproj.AssemblyReference.cache

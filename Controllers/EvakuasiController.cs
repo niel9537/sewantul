@@ -24,6 +24,12 @@ namespace PaceWeb.Controllers
 
         public ActionResult Index()
         {
+            if (TempData["Username"] == null || TempData["Token"] == null)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
                 user = TempData["Username"].ToString();
                 token = TempData["Token"].ToString();
                 TempData.Keep();
@@ -33,40 +39,48 @@ namespace PaceWeb.Controllers
                 TempData.Remove("msg");
                 TempData.Keep();
                 return View();
+            }
         }
         public ActionResult SaveEvakuasi(HttpPostedFileBase foto, string nama, string alamat, string longitude, string lattitude, string keterangan)
         {
-            try
+            if (TempData["Username"] == null || TempData["Token"] == null)
             {
-
-                //Method 2 Get file details from HttpPostedFileBase class    
-                user = TempData["Username"].ToString();
-                token = TempData["Token"].ToString();
-                TempData.Keep();
-                if (foto != null)
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                try
                 {
-                    Console.WriteLine(nama);
-                    string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
-                    if (tempNama.Contains("png"))
-                    {
-                        tempNama = tempNama.Replace('.', '@') + ".png";
-                    }
-                    else
-                    {
-                        tempNama = tempNama.Replace('.', '@') + ".jpg";
-                    }
-                    string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
-                    foto.SaveAs(path);
-                    string x = RestClient.SaveEvakuasi(token, nama, alamat, longitude, lattitude, tempNama, keterangan);
-                    TempData["msg"] = x.ToString();
 
+                    //Method 2 Get file details from HttpPostedFileBase class    
+                    user = TempData["Username"].ToString();
+                    token = TempData["Token"].ToString();
+                    TempData.Keep();
+                    if (foto != null)
+                    {
+                        Console.WriteLine(nama);
+                        string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
+                        if (tempNama.Contains("png"))
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".png";
+                        }
+                        else
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".jpg";
+                        }
+                        string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
+                        foto.SaveAs(path);
+                        string x = RestClient.SaveEvakuasi(token, nama, alamat, longitude, lattitude, tempNama, keterangan);
+                        TempData["msg"] = x.ToString();
+
+                    }
                 }
+                catch (Exception)
+                {
+                    TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
+                }
+                return RedirectToAction("Index", "Evakuasi");
             }
-            catch (Exception)
-            {
-                TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
-            }
-            return RedirectToAction("Index", "Evakuasi");
 
         }
         public JsonResult ShowEvakuasiById(string id)
@@ -79,47 +93,68 @@ namespace PaceWeb.Controllers
         }
         public ActionResult UpdateEvakuasi(HttpPostedFileBase foto, string id, string nama, string alamat, string longitude, string lattitude, string keterangan)
         {
-            try
+            if (TempData["Username"] == null || TempData["Token"] == null)
             {
-
-                //Method 2 Get file details from HttpPostedFileBase class    
-                user = TempData["Username"].ToString();
-                token = TempData["Token"].ToString();
-                TempData.Keep();
-                if (foto != null)
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                try
                 {
-                    Console.WriteLine(nama);
-                    string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
-                    if (tempNama.Contains("png"))
+
+                    //Method 2 Get file details from HttpPostedFileBase class    
+                    user = TempData["Username"].ToString();
+                    token = TempData["Token"].ToString();
+                    TempData.Keep();
+                    if (foto != null)
                     {
-                        tempNama = tempNama.Replace('.', '@') + ".png";
+                        Console.WriteLine(nama);
+                        string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
+                        if (tempNama.Contains("png"))
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".png";
+                        }
+                        else
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".jpg";
+                        }
+                        string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
+                        foto.SaveAs(path);
+                        string x = RestClient.UpdateEvakuasi(token, id, nama, alamat, longitude, lattitude, tempNama, keterangan);
+                        TempData["msg"] = x.ToString();
+
+
                     }
                     else
                     {
-                        tempNama = tempNama.Replace('.', '@') + ".jpg";
+                        TempData["msg"] = "Sertakan file foto ketika melakukan insert/update";
                     }
-                    string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
-                    foto.SaveAs(path);
-                    string x = RestClient.UpdateEvakuasi(token, id, nama, alamat, longitude, lattitude, tempNama, keterangan);
-                    TempData["msg"] = x.ToString();
+
 
                 }
+                catch (Exception)
+                {
+                    TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
+                }
+                return RedirectToAction("Index", "Evakuasi");
             }
-            catch (Exception)
-            {
-                TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
-            }
-            return RedirectToAction("Index", "Evakuasi");
 
         }
         public ActionResult DeleteEvakuasi(string id)
         {
-            user = TempData["Username"].ToString();
-            token = TempData["Token"].ToString();
-            TempData.Keep();
-            string x = RestClient.DeleteEvakuasi(token,id);
-            TempData["msg"] = x.ToString();
-            return RedirectToAction("Index", "Evakuasi");
+            if (TempData["Username"] == null || TempData["Token"] == null)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                user = TempData["Username"].ToString();
+                token = TempData["Token"].ToString();
+                TempData.Keep();
+                string x = RestClient.DeleteEvakuasi(token, id);
+                TempData["msg"] = x.ToString();
+                return RedirectToAction("Index", "Evakuasi");
+            }
 
         }
 

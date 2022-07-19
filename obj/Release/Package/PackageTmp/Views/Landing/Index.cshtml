@@ -1,0 +1,622 @@
+﻿@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Landing Page</title>
+    <meta content="" name="description">
+
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Required meta tags -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Infos/fonts/icomoon/style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Infos/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Infos/css/style.css">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Landings/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/Landings/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Landings/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Landings/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/Landings/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Landings/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <script>
+        function GetDetails() {
+            var longs = $("#long").text();
+            var latt = $("#latt").text();
+            //alert(latt);
+            $.ajax({
+                url: "/Landing/LokasiEvakuasiTerdekat?latt=" + latt + "&longs=" + longs,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+@*                    $('#id').val(id);
+                    $('#alamat').val(response.alamat);
+                    $('#nama').val(response.nama);
+                    $('#hasil').val(response.hasil);*@
+                    $('#lokasi').val(response.id + " - " + response.alamat + " - " + response.nama);
+                    $('#modalPop').modal('show');
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            return false;
+        }
+    </script>
+    <!-- Template Main CSS File -->
+    <link href="~/Landings/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+            <a class="logo d-flex align-items-center">
+                <span>SEWANTUL</span>
+            </a>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
+                    @*                    <li><a class="nav-link scrollto" href="#about">About</a></li>*@
+                    @*                    <li><a class="nav-link scrollto" href="#services">Services</a></li>*@
+                    <li><a class="nav-link scrollto" href="#recent-blog-posts">Wisata</a></li>
+                    <li><a class="nav-link scrollto" href="#Evakuasi">Evakuasi</a></li>
+                    <li><a class="nav-link scrollto" href="#Map">Map</a></li>
+                    <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
+
+
+                    @*                    <li><a class="nav-link scrollto" href="#team">Team</a></li>*@
+
+                    @*<li class="dropdown">
+                            <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="#">Drop Down 1</a></li>
+                                <li class="dropdown">
+                                    <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                    <ul>
+                                        <li><a href="#">Deep Drop Down 1</a></li>
+                                        <li><a href="#">Deep Drop Down 2</a></li>
+                                        <li><a href="#">Deep Drop Down 3</a></li>
+                                        <li><a href="#">Deep Drop Down 4</a></li>
+                                        <li><a href="#">Deep Drop Down 5</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Drop Down 2</a></li>
+                                <li><a href="#">Drop Down 3</a></li>
+                                <li><a href="#">Drop Down 4</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact</a></li>*@
+
+                    <li><a class="getstarted scrollto" href="@Url.Action("Index", "Auth")">Login</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center">
+                    <h1 data-aos="fade-up">Portal Informasi Lokasi Wisata dan Evakuasi Pantai Bantul</h1>
+                    <h2 data-aos="fade-up" data-aos-delay="400">Informasi terpecaya dan akurat</h2>
+                </div>
+                <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                    <img src="~/Assets/back.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+
+    <main id="main">
+        <!-- ======= Recent Blog Posts Section ======= -->
+        <section id="recent-blog-posts" class="recent-blog-posts">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>Wisata</h2>
+                    <p>Lokasi Wisata di Wilayah Bantul</p>
+                </header>
+
+                <div class="row">
+                    @foreach (var r in ViewBag.wisata)
+                    {
+                        <div class="col-lg-4">
+                            <div class="post-box">
+                                <div class="post-img"><img src="~/Assets/@r.foto" class="img-fluid" alt=""></div>
+                                <span class="post-date">@r.nama</span>
+
+                                <a href="@Url.Action("Wisata", "Landing", new { id = @r.id })" class="readmore stretched-link mt-auto"><span>Lebih Lanjut</span><i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+
+                    }
+                </div>
+
+            </div>
+
+        </section><!-- End Recent Blog Posts Section -->
+        <!-- ======= Recent Blog Posts Section ======= -->
+        <section id="Evakuasi" class="recent-blog-posts">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>Evakuasi</h2>
+                    <p>Lokasi Evakuasi di Wilayah Bantul</p>
+                </header>
+
+                <div class="row">
+                    @foreach (var r in ViewBag.evakuasi)
+                    {
+                        <div class="col-lg-4">
+                            <div class="post-box">
+                                <div class="post-img"><img src="~/Assets/@r.foto" class="img-fluid" alt=""></div>
+                                <span class="post-date">@r.nama</span>
+
+                                <a href="@Url.Action("Evakuasi", "Landing", new { id = @r.id })" class="readmore stretched-link mt-auto"><span>Lebih Lanjut</span><i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+
+                    }
+                </div>
+
+            </div>
+
+        </section><!-- End Recent Blog Posts Section -->
+        <section id="Map" class="recent-blog-posts">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>Map</h2>
+                    <p>Peta Titik Tempat Evakuasi di Wilayah Bantul</p>
+                </header>
+                <div class="col-lg-12">
+                    <a>Longitude </a> <a class="text-info" id="long"></a>
+                </div>
+                <div class="col-lg-12">
+                    <a>Latitude </a> <a class="text-info" id="latt"></a>
+                </div>
+                <div class="row align-items-center">
+
+                    <div class="col-lg-12">
+
+                        <a type="button" class="btn btn-success" style="color: floralwhite;" onclick="GetDetails()"><span>Evakuasi</span></a>
+                        <a></a>
+                        <a type="button" class="btn btn-success" style="color: floralwhite;" id="btnShowLocations"><i class="bi bi-geo-alt"></i><span> Titik Evakuasi</span></a>
+                        <a></a>
+                        <a type="button" class="btn btn-success" style="color: floralwhite;" href="https://www.gitews.org/tsunami-kit/id/E4/sumber_lainnya/rencana_evakuasi/jawa_bantul/Peta%20Evakuasi%20Kabupaten%20Bantul.jpg"><span id="spanTitle">Daerah Rawan</span></a>
+                        <br />
+                        <br />
+
+                        <div id="myMap" style="position:relative; width:1300; height:600px;"></div>
+                        <br />
+
+                        <div id="rawanMap" style="position:relative; width:1; height:1;"></div>
+                    </div>
+
+                </div>
+                <script>
+                    function loadMapRawan() {
+                        document.getElementById('rawanMap').style.display = 'block';
+                        if (document.getElementById('rawanMap')) {
+      
+                            if (document.getElementById('rawanMap').style.display == 'none') {
+                                document.getElementById('rawanMap').style.display = 'block';
+                                document.getElementById('myMap').style.display = 'none';
+                            }
+                            else {
+                                document.getElementById('rawanMap').style.display = 'none';
+                                document.getElementById('myMap').style.display = 'block';
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+</section><!-- End Recent Blog Posts Section -->
+        <!-- ======= Counts Section ======= -->
+        <section id="counts" class="counts">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <i class="bi bi-people"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="@ViewBag.totalwisatawan" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Wisatawan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <i class="bi bi-cursor"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="@ViewBag.totallokasiwisata" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Lokasi Wisata</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <i class="bi bi-geo-alt"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="@ViewBag.totallokasievakuasi" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Lokasi Evakuasi</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <i class="bi bi-people"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="2" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Jumlah Admin</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Counts Section -->
+        <!-- ======= F.A.Q Section ======= -->
+        <section id="faq" class="faq">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>F.A.Q</h2>
+                    <p>Frequently Asked Questions</p>
+                </header>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- F.A.Q List 1-->
+                        <div class="accordion accordion-flush" id="faqlist1">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                                        Berapa lama perjalanan dari pusat kota menuju pantai?
+                                    </button>
+                                </h2>
+                                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                    <div class="accordion-body">
+                                        Untuk kendaraan bermotor jarak yang di tempuh sekitar 45 menit sampai 1 jam dengan perjalanan normal. Jika menggunakan kendaraan roda 4 maka jarak yang ditempuh sekitar 1 - 2 jam perjalanan.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                                        Selain pantai, pemandangan apa saja yang dapat dinikmati di daerah pantai Bantul ?
+                                    </button>
+                                </h2>
+                                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                    <div class="accordion-body">
+                                        Banyak sekali wisata yang dapat dikunjungi jika kita pergi ke daerah pantai Bantul. Contohnya seperti teras kaca, mengikuti nelayan di pantai kukup, dan juga baron hill.
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <!-- F.A.Q List 2-->
+                        <div class="accordion accordion-flush" id="faqlist2">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
+                                        Apakah sekitar pantai bantul yang dapat digunakan untuk renang ?
+                                    </button>
+                                </h2>
+                                <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                                    <div class="accordion-body">
+                                        Yoi Boy. Terdapat beberapa lokasi pantai yang dapat ditempati untuk berenang seperti pantai cemara, pantai kuaru dan juga pantai baru.
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section><!-- End F.A.Q Section -->
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>Kontak</h2>
+                    <p>Kontak Kami</p>
+                </header>
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-12">
+
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h3>Alamat</h3>
+                                    <p>Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <i class="ri-whatsapp-fill"></i>
+                                    <h3>Hubungi Kami</h3>
+                                    <a href="https://api.whatsapp.com/send?phone=6281344088899">+6281344088899</>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <i class="bi bi-envelope"></i>
+                                    <h3>Email Us</h3>
+                                    <p>sewantul@gmail.com<br>mulyadiyadi526@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <i class="bi bi-clock"></i>
+                                    <h3>Buka Jam</h3>
+                                    <p>Senin - Jumat<br>09.00 - 17.00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal fade" id="modalPop" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded-0">
+                        <div class="modal-body p-4 px-5">
+
+
+                            <div class="main-content text-center">
+
+
+                                <button type="button" title="Tutup" class="close-btn" data-bs-dismiss="modal" aria-label="Close">
+                                
+                                </button>
+
+
+                                <div class="warp-icon mb-4">
+                                    <span class="icon-warning2"></span>
+                                </div>
+                                <form action="#">
+                                    <label for="">Wilayah Terdekat</label>
+                                    <p class="mb-4">Segeralah melakukan evakuasi ke wilayah</p>
+                                    <div class="form-group mb-4">
+                                        <input type="button" class="form-control text-center" id="lokasi" disabled />
+                                    </div>
+
+                                    @*                                    <div class="d-flex">
+                <div class="mx-auto">
+                    <a href="#" class="btn btn-primary">Submit</a>
+                </div>
+            </div>*@
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>SEWANTUL 2022</span></strong>. All Rights Reserved
+            </div>
+
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Landings/assets/vendor/purecounter/purecounter.js"></script>
+    <script src="~/Landings/assets/vendor/aos/aos.js"></script>
+    <script src="~/Landings/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Landings/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Landings/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Landings/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Landings/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Landings/assets/js/main.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function LoadMap() {
+            map = new Microsoft.Maps.Map('#myMap', {
+                credentials: "AjOvpUb5BII-SwIoxFnhqLfZ2az7jAR45BfEtvwhJ11ityVx-PIPRBkvzc1fqWFB"
+            });
+            map2 = new Microsoft.Maps.Map('#rawanMap', {
+                credentials: "AjOvpUb5BII-SwIoxFnhqLfZ2az7jAR45BfEtvwhJ11ityVx-PIPRBkvzc1fqWFB"
+            });
+            var url = "/Map/GetLocations";
+            var center = map.getCenter();
+            $.getJSON(url, null, function (data) {
+                var pins = [];
+                $.each(data, function (index, LocationData) {
+                    var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(
+                        LocationData.lattitude,
+                        LocationData.longitude), {
+                        title: LocationData.nama,
+                        subTitle: LocationData.alamat,
+                        text: LocationData.id
+                    });
+                    pins.push(pushpin);
+
+                });
+                map.entities.push(pins);
+                map.setView({
+                    zoom: 11, center: new Microsoft.Maps.Location(-8.03646634600807, 110.40347242399436)
+                });
+            });
+
+            var eyes = [
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.98342724879982, 110.20707172182316),
+                    new Microsoft.Maps.Location(-7.987773718366147, 110.21748290961528),
+                    new Microsoft.Maps.Location(-7.9852467068050155, 110.22064709414032),
+                    new Microsoft.Maps.Location(-7.983124005011102, 110.21248145665633),
+                ], { fillColor: 'red' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.987773718366147, 110.21748290961528),
+                    new Microsoft.Maps.Location(-7.990974771415685, 110.22668645611621),
+                    new Microsoft.Maps.Location(-7.989259394239086, 110.2283103873268),
+                    new Microsoft.Maps.Location(-7.9852467068050155, 110.22064709414032),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.990974771415685, 110.22668645611621),
+                    new Microsoft.Maps.Location(-8.000061249946178, 110.25188807899012),
+                    new Microsoft.Maps.Location(-7.997171396931376, 110.25231723244566),
+                    new Microsoft.Maps.Location(-7.989259394239086, 110.2283103873268),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.990974771415685, 110.22668645611621),
+                    new Microsoft.Maps.Location(-8.000061249946178, 110.25188807899012),
+                    new Microsoft.Maps.Location(-7.997171396931376, 110.25231723244566),
+                    new Microsoft.Maps.Location(-7.989259394239086, 110.2283103873268),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.000061249946178, 110.25188807899012),
+                    new Microsoft.Maps.Location(-8.001795501410932, 110.25850584809365),
+                    new Microsoft.Maps.Location(-8.000232884094217, 110.25996244322283),
+                    new Microsoft.Maps.Location(-7.997171396931376, 110.25231723244566),
+                ], { fillColor: 'red' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.001795501410932, 110.25850584809365),
+                    new Microsoft.Maps.Location(-8.005385342053016, 110.26587417968759),
+                    new Microsoft.Maps.Location(-8.003384138693578, 110.2665959268923),
+                    new Microsoft.Maps.Location(-8.000232884094217, 110.25996244322283),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.005385342053016, 110.26587417968759),
+                    new Microsoft.Maps.Location(-8.01346152725436, 110.29344492227915),
+                    new Microsoft.Maps.Location(-8.01217506602227, 110.29669278470031),
+                    new Microsoft.Maps.Location(-8.003384138693578, 110.2665959268923),
+                ], { fillColor: 'red' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.01346152725436, 110.29344492227915),
+                    new Microsoft.Maps.Location(-8.025482630083818, 110.33384714440234),
+                    new Microsoft.Maps.Location(-8.022762938830091, 110.33633623444445),
+                    new Microsoft.Maps.Location(-8.01217506602227, 110.29669278470031),
+                ], { fillColor: 'yellow' }),
+            ];
+
+@*            Microsoft.Maps.loadModule('Microsoft.Maps.DrawingTools', function () {
+                var tools = new Microsoft.Maps.DrawingTools(map2);
+                tools.showDrawingManager(function (manager) {
+                    manager.add(eyes);
+                });
+            });*@
+            //Request the user's location
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var loc = new Microsoft.Maps.Location(
+                    position.coords.latitude,
+                    position.coords.longitude);
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+                //Add a pushpin at the user's location.
+                document.getElementById('long').innerHTML = position.coords.longitude;
+                document.getElementById('latt').innerHTML = position.coords.latitude;
+                var pin = new Microsoft.Maps.Pushpin(loc);
+                map.entities.push(pin);
+
+                //Center the map on the user's location.
+                map.setView({ center: loc, zoom: 12 });
+            });
+
+        }
+
+        $('#btnShowLocations').click(function () {
+            var url = "/Map/GetLocations";
+            var center = map.getCenter();
+            $.getJSON(url, null, function (data) {
+                var pins = [];
+                $.each(data, function (index, LocationData) {
+                    var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(
+                        LocationData.lattitude,
+                        LocationData.longitude), {
+                        title: LocationData.nama,
+                        subTitle: LocationData.alamat,
+                        text: LocationData.id
+                    });
+                    pins.push(pushpin);
+
+                });
+                map.entities.push(pins);
+                map.setView({
+                    zoom: 11, center: new Microsoft.Maps.Location(-7.99912385285162, 110.31156948233843)
+                });
+            });
+
+
+        });
+    </script>
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=LoadMap" async defer></script>
+</body>

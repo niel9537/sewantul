@@ -12,6 +12,7 @@ namespace PaceWeb.Controllers
 {
     public class LandingController : Controller
     {
+
         string nama, id, alamat;
         static readonly IServerDataRestClient RestClient = new ServerDataRestClient();
         private IServerDataRestClient _restClient;
@@ -39,16 +40,18 @@ namespace PaceWeb.Controllers
             ViewBag.totallokasiwisata = lokasiwisata;
             return View();
         }
-        public JsonResult LokasiEvakuasiTerdekat()
+        [HttpPost]
+        public JsonResult LokasiEvakuasiTerdekat(string latt, string longs)
         {
+
             var y = RestClient.GetEvakuasi2();
-            var from = new GeoCoordinate(-7.76864743226932, 110.42511082625096);
+            var from = new GeoCoordinate(Double.Parse(latt, CultureInfo.InvariantCulture), Double.Parse(longs, CultureInfo.InvariantCulture));
             var to = new GeoCoordinate(Double.Parse(y[0].lattitude, CultureInfo.InvariantCulture), (Double.Parse(y[0].longitude, CultureInfo.InvariantCulture)));
             var tempresult = from.GetDistanceTo(to);
-
+            string idresult = "0";
             foreach (Evakuasi evakuasi in y)
             {
-                var from2 = new GeoCoordinate(-7.76864743226932, 110.42511082625096);
+                var from2 = new GeoCoordinate(Double.Parse(latt, CultureInfo.InvariantCulture), Double.Parse(longs, CultureInfo.InvariantCulture));
                 var to2 = new GeoCoordinate(Double.Parse(evakuasi.lattitude, CultureInfo.InvariantCulture), (Double.Parse(evakuasi.longitude, CultureInfo.InvariantCulture)));
                 var results = from2.GetDistanceTo(to2);
                 if (results < tempresult)
@@ -57,20 +60,40 @@ namespace PaceWeb.Controllers
                     id = evakuasi.id;
                     nama = evakuasi.nama;
                     alamat = evakuasi.alamat;
+                    idresult = evakuasi.id;
                 }
             }
-            var finalresults = tempresult;
-            var finalid = id;
-            var finalnama = nama;
-            var finalalamat = alamat;
-            var response = new ResultJarak()
+            if (idresult.Equals("0"))
             {
-                id = id,
-                nama = finalnama,
-                alamat = finalalamat,
-                hasil = Math.Round(finalresults,2).ToString()
-            };
-            return Json(response, JsonRequestBehavior.AllowGet);
+                var finalresults = tempresult;
+                var finalid = id;
+                var finalnama = y[0].nama;
+                var finalalamat = y[0].alamat;
+                var response = new ResultJarak()
+                {
+                    id = id,
+                    nama = finalnama,
+                    alamat = finalalamat,
+                    hasil = Math.Round(finalresults, 2).ToString()
+                };
+                return Json(response, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var finalresults = tempresult;
+                var finalid = id;
+                var finalnama = nama;
+                var finalalamat = alamat;
+                var response = new ResultJarak()
+                {
+                    id = id,
+                    nama = finalnama,
+                    alamat = finalalamat,
+                    hasil = Math.Round(finalresults, 2).ToString()
+                };
+                return Json(response, JsonRequestBehavior.AllowGet);
+            }
+           
         }
         public ActionResult Wisata(string id)
         {

@@ -24,6 +24,12 @@ namespace PaceWeb.Controllers
 
         public ActionResult Index()
         {
+            if (TempData["Username"] == null || TempData["Token"] == null)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
                 user = TempData["Username"].ToString();
                 token = TempData["Token"].ToString();
                 TempData.Keep();
@@ -33,40 +39,48 @@ namespace PaceWeb.Controllers
                 TempData.Remove("msg");
                 TempData.Keep();
                 return View();
+            }
         }
         public ActionResult SaveWisata(HttpPostedFileBase foto, string nama, string alamat, string longitude, string lattitude, string keterangan, string jumlah_pengunjung)
         {
-            try
+            if (TempData["Username"] == null || TempData["Token"] == null)
             {
-
-                //Method 2 Get file details from HttpPostedFileBase class    
-                user = TempData["Username"].ToString();
-                token = TempData["Token"].ToString();
-                TempData.Keep();
-                if (foto != null)
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                try
                 {
-                    Console.WriteLine(nama);
-                    string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
-                    if (tempNama.Contains("png"))
-                    {
-                        tempNama = tempNama.Replace('.', '@') + ".png";
-                    }
-                    else
-                    {
-                        tempNama = tempNama.Replace('.', '@') + ".jpg";
-                    }
-                    string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
-                    foto.SaveAs(path);
-                    string x = RestClient.SaveWisata(token, nama, alamat, longitude, lattitude, tempNama, keterangan, jumlah_pengunjung);
-                    TempData["msg"] = x.ToString();
 
+                    //Method 2 Get file details from HttpPostedFileBase class    
+                    user = TempData["Username"].ToString();
+                    token = TempData["Token"].ToString();
+                    TempData.Keep();
+                    if (foto != null)
+                    {
+                        Console.WriteLine(nama);
+                        string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
+                        if (tempNama.Contains("png"))
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".png";
+                        }
+                        else
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".jpg";
+                        }
+                        string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
+                        foto.SaveAs(path);
+                        string x = RestClient.SaveWisata(token, nama, alamat, longitude, lattitude, tempNama, keterangan, jumlah_pengunjung);
+                        TempData["msg"] = x.ToString();
+
+                    }
                 }
+                catch (Exception)
+                {
+                    TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
+                }
+                return RedirectToAction("Index", "Wisata");
             }
-            catch (Exception)
-            {
-                TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
-            }
-            return RedirectToAction("Index", "Wisata");
 
         }
         public JsonResult ShowWisataById(string id)
@@ -79,47 +93,66 @@ namespace PaceWeb.Controllers
         }
         public ActionResult UpdateWisata(HttpPostedFileBase foto, string id, string nama, string alamat, string longitude, string lattitude, string keterangan, string jumlah_pengunjung)
         {
-            try
+            if (TempData["Username"] == null || TempData["Token"] == null)
             {
-
-                //Method 2 Get file details from HttpPostedFileBase class    
-                user = TempData["Username"].ToString();
-                token = TempData["Token"].ToString();
-                TempData.Keep();
-                if (foto != null)
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                try
                 {
-                    Console.WriteLine(nama);
-                    string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
-                    if (tempNama.Contains("png"))
+
+                    //Method 2 Get file details from HttpPostedFileBase class    
+                    user = TempData["Username"].ToString();
+                    token = TempData["Token"].ToString();
+                    TempData.Keep();
+                    if (foto != null)
                     {
-                        tempNama = tempNama.Replace('.', '@') + ".png";
+                        Console.WriteLine(nama);
+                        string tempNama = foto.FileName + DateTime.Now.ToString("MMddyyyyHHmmssfff");
+                        if (tempNama.Contains("png"))
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".png";
+                        }
+                        else
+                        {
+                            tempNama = tempNama.Replace('.', '@') + ".jpg";
+                        }
+                        string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
+                        foto.SaveAs(path);
+                        string x = RestClient.UpdateWisata(token, id, nama, alamat, longitude, lattitude, tempNama, keterangan, jumlah_pengunjung);
+                        TempData["msg"] = x.ToString();
+
                     }
                     else
                     {
-                        tempNama = tempNama.Replace('.', '@') + ".jpg";
+                        TempData["msg"] = "Sertakan file foto ketika melakukan insert/update"; ;
                     }
-                    string path = Path.Combine(Server.MapPath("~/Assets"), Path.GetFileName(tempNama));
-                    foto.SaveAs(path);
-                    string x = RestClient.UpdateWisata(token, id, nama, alamat, longitude, lattitude, tempNama, keterangan, jumlah_pengunjung);
-                    TempData["msg"] = x.ToString();
 
                 }
+                catch (Exception)
+                {
+                    TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
+                }
+                return RedirectToAction("Index", "Wisata");
             }
-            catch (Exception)
-            {
-                TempData["msg"] = "Gagal ketika menyimpan file gambar"; ;
-            }
-            return RedirectToAction("Index", "Wisata");
 
         }
         public ActionResult DeleteWisata(string id)
         {
-            user = TempData["Username"].ToString();
-            token = TempData["Token"].ToString();
-            TempData.Keep();
-            string x = RestClient.DeleteWisata(token,id);
-            TempData["msg"] = x.ToString();
-            return RedirectToAction("Index", "Wisata");
+            if (TempData["Username"] == null || TempData["Token"] == null)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                user = TempData["Username"].ToString();
+                token = TempData["Token"].ToString();
+                TempData.Keep();
+                string x = RestClient.DeleteWisata(token, id);
+                TempData["msg"] = x.ToString();
+                return RedirectToAction("Index", "Wisata");
+            }
 
         }
 

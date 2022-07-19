@@ -24,5 +24,6 @@ namespace PaceWeb.Models
         public string password { get; set; }
         public string role { get; set; }
         public string status { get; set; }
+        public string foto { get; set; }
     }
 }

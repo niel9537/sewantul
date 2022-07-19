@@ -1,5 +1,6 @@
 ﻿@{
     var tempNIK = TempData["NIK"];
+    var tempRole = TempData["Role"];
 }
 <!DOCTYPE html>
 <html>
@@ -60,43 +61,81 @@
     <div id="wrapper" class="sidebar">
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav" id="sidebar-nav">
+                @if (@TempData["Role"] == "superadmin")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "Home")">
+                            <i class="bi bi-person-workspace"></i>
+                            <span>Beranda</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "User")">
+                            <i class="bi bi-person"></i>
+                            <span>User</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "Evakuasi")">
+                            <i class="bx bxs-map-alt"></i>
+                            <span>Evakuasi</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "Wisata")">
+                            <i class="bx bx-compass"></i>
+                            <span>Wisata</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+                    <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Map")">
+                <i class="bx bx-compass"></i>
+                <span>Map</span>
+            </a>
+        </li>-->
+                    <!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Signout", "Auth")">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li><!-- End Login Page Nav -->
+                }
+                else if (@TempData["Role"] == "admin")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "Home")">
+                            <i class="bi bi-person-workspace"></i>
+                            <span>Beranda</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->   
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "Evakuasi")">
+                            <i class="bx bxs-map-alt"></i>
+                            <span>Evakuasi</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Index", "Wisata")">
+                            <i class="bx bx-compass"></i>
+                            <span>Wisata</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+                    <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Map")">
+                <i class="bx bx-compass"></i>
+                <span>Map</span>
+            </a>
+        </li>-->
+                    <!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="@Url.Action("Signout", "Auth")">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li><!-- End Login Page Nav -->
+                }
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "Home")">
-                        <i class="bi bi-person-workspace"></i>
-                        <span>Beranda</span>
-                    </a>
-                </li><!-- End Dashboard Nav -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "User")">
-                        <i class="bi bi-person"></i>
-                        <span>User</span>
-                    </a>
-                </li><!-- End Dashboard Nav -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "Evakuasi")">
-                        <i class="bx bxs-map-alt"></i>
-                        <span>Evakuasi</span>
-                    </a>
-                </li><!-- End Dashboard Nav -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "Wisata")">
-                        <i class="bx bx-compass"></i>
-                        <span>Wisata</span>
-                    </a>
-                </li><!-- End Dashboard Nav -->
-                <!--<li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "Map")">
-                        <i class="bx bx-compass"></i>
-                        <span>Map</span>
-                    </a>
-                </li>--><!-- End Dashboard Nav -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="@Url.Action("Index", "Auth")">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                        <span>Logout</span>
-                    </a>
-                </li><!-- End Login Page Nav -->
 
 
             </ul>

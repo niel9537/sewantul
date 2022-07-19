@@ -1,0 +1,386 @@
+﻿@{
+    ViewBag.Title = "Menu User";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<head>
+    <meta charset="utf-8">
+    <title>User</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Styles/jquery.dataTables.min.css" rel="stylesheet" />
+    <script>
+        function GetDetails(id) {
+            $.ajax({
+                url: "/User/ShowUserById/" + id,
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    $('#idup').val(response.id);
+                    $('#nama').val(response.nama);
+                    $('#email').val(response.email);
+                    $('#alamat').val(response.alamat);
+                    $('#notelp').val(response.notelp);
+                    $('#jeniskelamin').val(response.jeniskelamin);
+                    $('#username').val(response.username);
+                    $('#password').val(response.password);
+                    $('#modalUpdate').modal('show');
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            return false;
+        }
+        function Delete(id) {
+            $.ajax({
+                url: "/User/ShowUserById/" + id,
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    $('#idde').val(response.id);
+                    $('#modalDelete').modal('show');
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            return false;
+        }
+    </script>
+    <link href="~/Styles/BoostrapTheme/assets/img/favicon.png" rel="icon">
+    <link href="~/Styles/BoostrapTheme/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Styles/BoostrapTheme/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Styles/BoostrapTheme/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Styles/BoostrapTheme/assets/css/style.css" rel="stylesheet">
+    <style>
+        th {
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .dataTables_filter {
+            text-align: right;
+        }
+    </style>
+
+</head>
+<body>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 class="card-title">Data User > Tampil Semua User</h5>
+                <div>
+                    <div>
+                        @if (@ViewBag.msg != null)
+                        {
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                @ViewBag.msg
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+
+                        <!--a class="btn btn-outline-primary" href="@Url.Action("CreateUser", "User")"-->
+                        <Button type="button" class="btn btn-outline-primary" id="createModal">
+                            <i class="ri-add-circle-fill"></i>
+                            <span>Tambah User</span>
+                        </Button>
+                        <!-- Data Table -->
+                        <table id="tabel" class="table dataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID User</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Jenis Kelamin</th>
+                                    <th scope="col">Update/Delete</th>
+                                    @*<th scope="col">Delete</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in ViewBag.result)
+                                {
+                                    <tr>
+                                        <td align="center">@r.id</td>
+                                        <td align="center">@r.nama</td>
+                                        <td align="center">@r.alamat</td>
+                                        <td align="center">@r.email</td>
+                                        <td align="center">@r.jeniskelamin</td>
+                                        <td align="center">
+                                            <button align="center" class="btn btn-outline-success" onclick="GetDetails(@r.id)">Update</button>
+                                            <button align="center" class="btn btn-outline-danger" onclick="Delete(@r.id)">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal fade" id="modalDelete" tabindex="-1" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                @using (Html.BeginForm("DeleteUsers", "User", FormMethod.Post))
+                                {
+                                    <div class="modal-body">
+                                        <!-- Floating Labels Form -->
+                                        <input type="hidden" id="idde" name="id">
+                                        <div class="modal-body">
+                                            <p>Apakah anda yakin ingin menghapus user ini ??</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary" name="submit">Hapus</button>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal fade" id="modalUpdate" tabindex="-1" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                @using (Html.BeginForm("UpdateUsers", "User", FormMethod.Post))
+                                {
+                                    <input type="hidden" id="idup" name="id">
+                                    <div class="modal-body">
+                                        <!-- Floating Labels Form -->
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                                                <label for="username">Masukan Username</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="password" class="form-control" id="password" placeholder="Password">
+                                                <label for="password">Masukan Password</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                                                <label for="nama">Masukan Nama</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+                                                <label for="email">Masukan Email</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
+                                                <label for="alamat">Masukan Alamat</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="number" name="notelp" class="form-control" id="notelp" placeholder="Nomor Telepon">
+                                                <label for="notelp">Masukan Nomor Telepon</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-md-12">
+                                            <div class="form-floating">
+                                                <select class="form-select" name="jeniskelamin" id="jeniskelamin" aria-label="State">
+                                                    <option value="Laki-laki">Laki-laki</option>
+                                                    <option value="Perempuan">Perempuan</option>
+
+                                                </select>
+                                                <label for="jeniskelamin">Pilih Jenis Kelamin</label>
+                                            </div>
+                                        </div>
+                                        <br />
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal fade" id="modalCreate" tabindex="-1" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tambah User Baru</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                @using (Html.BeginForm("SaveUsers", "User", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="modal-body">
+                                        <!-- Floating Labels Form -->
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                                                <label for="username">Masukan Username</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="password" class="form-control" id="password" placeholder="Password">
+                                                <label for="password">Masukan Password</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                                                <label for="nama">Masukan Nama</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+                                                <label for="email">Masukan Email</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
+                                                <label for="alamat">Masukan Alamat</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row-cols-md-12">
+                                            <div class="form-floating">
+                                                <input type="number" name="notelp" class="form-control" id="notelp" placeholder="Nomor Telepon">
+                                                <label for="notelp">Masukan Nomor Telepon</label>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-md-12">
+                                            <div class="form-floating">
+                                                <select class="form-select" name="jeniskelamin" id="jeniskelamin" aria-label="State">
+                                                    <option value="Laki-laki">Laki-laki</option>
+                                                    <option value="Perempuan">Perempuan</option>
+
+                                                </select>
+                                                <label for="jeniskelamin">Pilih Jenis Kelamin</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-12">
+                                            <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="file" name="foto" id="foto">
+                                            </div>
+                                        </div>
+                                        <br />
+                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                                    </div>
+                                }
+                            </div>
+
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $("#createModal").click(function () {
+                                        $("#modalCreate").modal('show');
+                                    });
+
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!-- End Default Table Example -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Styles/BoostrapTheme/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/chart.js/chart.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/quill/quill.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/Styles/BoostrapTheme/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Styles/BoostrapTheme/assets/js/main.js"></script>
+
+</body>
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        var popup, dataTable;
+        $(document).ready(function () {
+            dataTable = $('#tabel').DataTable({
+                "pageLength": 5,
+                "pagingType": 'simple_numbers',
+                "ordering": true,
+                "oLanguage": {
+                    "sSearch": "Cari User : "
+                },
+                "bLengthChange": false,
+                "bInfo": false,
+            });
+        });
+
+    </script>
+}

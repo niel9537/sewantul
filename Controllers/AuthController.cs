@@ -44,7 +44,8 @@ namespace PaceWeb.Controllers
 
         public ActionResult SignOut()
         {
-
+/*            TempData.Remove("Username");
+            TempData.Remove("Token");*/
             TempData.Clear();
             return RedirectToAction("Index", "Auth");
 

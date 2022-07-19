@@ -35,7 +35,7 @@ namespace PaceWeb.Helpers
         //Sign In 
         string SignIn(string username, string password);
         //Save Users
-        string SaveUsers(string token, string username, string password, string nama, string email, string alamat, string notelp, string jeniskelamin);
+        string SaveUsers(string token, string foto, string username, string password, string nama, string email, string alamat, string notelp, string jeniskelamin);
         //Update Users
         string UpdateUsers(string token, string id, string username, string password, string nama, string email, string alamat, string notelp, string jeniskelamin);
         //Delete Users 

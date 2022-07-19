@@ -42,9 +42,12 @@
     <link href="~/Landings/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <script>
         function GetDetails() {
+            var longs = $("#long").text();
+            var latt = $("#latt").text();
+            //alert(latt);
             $.ajax({
-                url: "/Landing/LokasiEvakuasiTerdekat",
-                typr: "GET",
+                url: "/Landing/LokasiEvakuasiTerdekat?latt=" + latt + "&longs=" + longs,
+                type: "POST",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (response) {
@@ -203,7 +206,12 @@
                     <h2>Map</h2>
                     <p>Peta Titik Tempat Evakuasi di Wilayah Bantul</p>
                 </header>
-
+                <div class="col-lg-12">
+                    <a>Longitude </a> <a class="text-info" id="long"></a>
+                </div>
+                <div class="col-lg-12">
+                    <a>Latitude </a> <a class="text-info" id="latt"></a>
+                </div>
                 <div class="row align-items-center">
 
                     <div class="col-lg-12">
@@ -211,18 +219,37 @@
                         <a type="button" class="btn btn-success" style="color: floralwhite;" onclick="GetDetails()"><span>Evakuasi</span></a>
                         <a></a>
                         <a type="button" class="btn btn-success" style="color: floralwhite;" id="btnShowLocations"><i class="bi bi-geo-alt"></i><span> Titik Evakuasi</span></a>
+                        <a></a>
+                        <a type="button" class="btn btn-success" style="color: floralwhite;" href="https://www.gitews.org/tsunami-kit/id/E4/sumber_lainnya/rencana_evakuasi/jawa_bantul/Peta%20Evakuasi%20Kabupaten%20Bantul.jpg"><span id="spanTitle">Daerah Rawan</span></a>
                         <br />
                         <br />
 
                         <div id="myMap" style="position:relative; width:1300; height:600px;"></div>
+                        <br />
 
+                        <div id="rawanMap" style="position:relative; width:1; height:1;"></div>
                     </div>
 
                 </div>
-
+                <script>
+                    function loadMapRawan() {
+                        document.getElementById('rawanMap').style.display = 'block';
+                        if (document.getElementById('rawanMap')) {
+      
+                            if (document.getElementById('rawanMap').style.display == 'none') {
+                                document.getElementById('rawanMap').style.display = 'block';
+                                document.getElementById('myMap').style.display = 'none';
+                            }
+                            else {
+                                document.getElementById('rawanMap').style.display = 'none';
+                                document.getElementById('myMap').style.display = 'block';
+                            }
+                        }
+                    }
+                </script>
             </div>
 
-        </section><!-- End Recent Blog Posts Section -->
+</section><!-- End Recent Blog Posts Section -->
         <!-- ======= Counts Section ======= -->
         <section id="counts" class="counts">
             <div class="container" data-aos="fade-up">
@@ -370,17 +397,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-telephone"></i>
+                                    <i class="ri-whatsapp-fill"></i>
                                     <h3>Hubungi Kami</h3>
-                                    <p>+62 822-6823-6103 </p>
-                                    <p>+62 813-4408-8899</p>
+                                    <a href="https://api.whatsapp.com/send?phone=6281344088899">+6281344088899</>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
                                     <i class="bi bi-envelope"></i>
                                     <h3>Email Us</h3>
-                                    <p>info@example.com<br>contact@example.com</p>
+                                    <p>sewantul@gmail.com<br>mulyadiyadi526@gmail.com</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -467,6 +493,9 @@
             map = new Microsoft.Maps.Map('#myMap', {
                 credentials: "AjOvpUb5BII-SwIoxFnhqLfZ2az7jAR45BfEtvwhJ11ityVx-PIPRBkvzc1fqWFB"
             });
+            map2 = new Microsoft.Maps.Map('#rawanMap', {
+                credentials: "AjOvpUb5BII-SwIoxFnhqLfZ2az7jAR45BfEtvwhJ11ityVx-PIPRBkvzc1fqWFB"
+            });
             var url = "/Map/GetLocations";
             var center = map.getCenter();
             $.getJSON(url, null, function (data) {
@@ -487,6 +516,64 @@
                     zoom: 11, center: new Microsoft.Maps.Location(-8.03646634600807, 110.40347242399436)
                 });
             });
+
+            var eyes = [
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.98342724879982, 110.20707172182316),
+                    new Microsoft.Maps.Location(-7.987773718366147, 110.21748290961528),
+                    new Microsoft.Maps.Location(-7.9852467068050155, 110.22064709414032),
+                    new Microsoft.Maps.Location(-7.983124005011102, 110.21248145665633),
+                ], { fillColor: 'red' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.987773718366147, 110.21748290961528),
+                    new Microsoft.Maps.Location(-7.990974771415685, 110.22668645611621),
+                    new Microsoft.Maps.Location(-7.989259394239086, 110.2283103873268),
+                    new Microsoft.Maps.Location(-7.9852467068050155, 110.22064709414032),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.990974771415685, 110.22668645611621),
+                    new Microsoft.Maps.Location(-8.000061249946178, 110.25188807899012),
+                    new Microsoft.Maps.Location(-7.997171396931376, 110.25231723244566),
+                    new Microsoft.Maps.Location(-7.989259394239086, 110.2283103873268),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-7.990974771415685, 110.22668645611621),
+                    new Microsoft.Maps.Location(-8.000061249946178, 110.25188807899012),
+                    new Microsoft.Maps.Location(-7.997171396931376, 110.25231723244566),
+                    new Microsoft.Maps.Location(-7.989259394239086, 110.2283103873268),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.000061249946178, 110.25188807899012),
+                    new Microsoft.Maps.Location(-8.001795501410932, 110.25850584809365),
+                    new Microsoft.Maps.Location(-8.000232884094217, 110.25996244322283),
+                    new Microsoft.Maps.Location(-7.997171396931376, 110.25231723244566),
+                ], { fillColor: 'red' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.001795501410932, 110.25850584809365),
+                    new Microsoft.Maps.Location(-8.005385342053016, 110.26587417968759),
+                    new Microsoft.Maps.Location(-8.003384138693578, 110.2665959268923),
+                    new Microsoft.Maps.Location(-8.000232884094217, 110.25996244322283),
+                ], { fillColor: 'yellow' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.005385342053016, 110.26587417968759),
+                    new Microsoft.Maps.Location(-8.01346152725436, 110.29344492227915),
+                    new Microsoft.Maps.Location(-8.01217506602227, 110.29669278470031),
+                    new Microsoft.Maps.Location(-8.003384138693578, 110.2665959268923),
+                ], { fillColor: 'red' }),
+                new Microsoft.Maps.Polygon([
+                    new Microsoft.Maps.Location(-8.01346152725436, 110.29344492227915),
+                    new Microsoft.Maps.Location(-8.025482630083818, 110.33384714440234),
+                    new Microsoft.Maps.Location(-8.022762938830091, 110.33633623444445),
+                    new Microsoft.Maps.Location(-8.01217506602227, 110.29669278470031),
+                ], { fillColor: 'yellow' }),
+            ];
+
+@*            Microsoft.Maps.loadModule('Microsoft.Maps.DrawingTools', function () {
+                var tools = new Microsoft.Maps.DrawingTools(map2);
+                tools.showDrawingManager(function (manager) {
+                    manager.add(eyes);
+                });
+            });*@
             //Request the user's location
             navigator.geolocation.getCurrentPosition(function (position) {
                 var loc = new Microsoft.Maps.Location(
@@ -495,6 +582,8 @@
                 console.log(position.coords.latitude);
                 console.log(position.coords.longitude);
                 //Add a pushpin at the user's location.
+                document.getElementById('long').innerHTML = position.coords.longitude;
+                document.getElementById('latt').innerHTML = position.coords.latitude;
                 var pin = new Microsoft.Maps.Pushpin(loc);
                 map.entities.push(pin);
 
