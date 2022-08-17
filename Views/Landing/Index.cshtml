@@ -70,7 +70,7 @@
 
 </head>
 
-<body>
+<body onload="getLocation()">
 
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top">
@@ -227,29 +227,14 @@
                         <div id="myMap" style="position:relative; width:1300; height:600px;"></div>
                         <br />
 
-                        <div id="rawanMap" style="position:relative; width:1; height:1;"></div>
+                        <div style="visibility: hidden" id="rawanMap" style="position:relative; width:1px; height:1px;"></div>
                     </div>
 
                 </div>
-                <script>
-                    function loadMapRawan() {
-                        document.getElementById('rawanMap').style.display = 'block';
-                        if (document.getElementById('rawanMap')) {
-      
-                            if (document.getElementById('rawanMap').style.display == 'none') {
-                                document.getElementById('rawanMap').style.display = 'block';
-                                document.getElementById('myMap').style.display = 'none';
-                            }
-                            else {
-                                document.getElementById('rawanMap').style.display = 'none';
-                                document.getElementById('myMap').style.display = 'block';
-                            }
-                        }
-                    }
-                </script>
+
             </div>
 
-</section><!-- End Recent Blog Posts Section -->
+        </section><!-- End Recent Blog Posts Section -->
         <!-- ======= Counts Section ======= -->
         <section id="counts" class="counts">
             <div class="container" data-aos="fade-up">
@@ -390,20 +375,6 @@
                         <div class="row gy-4">
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <h3>Alamat</h3>
-                                    <p>Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-box">
-                                    <i class="ri-whatsapp-fill"></i>
-                                    <h3>Hubungi Kami</h3>
-                                    <a href="https://api.whatsapp.com/send?phone=6281344088899">+6281344088899</>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-box">
                                     <i class="bi bi-envelope"></i>
                                     <h3>Email Us</h3>
                                     <p>sewantul@gmail.com<br>mulyadiyadi526@gmail.com</p>
@@ -411,9 +382,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-clock"></i>
-                                    <h3>Buka Jam</h3>
-                                    <p>Senin - Jumat<br>09.00 - 17.00</p>
+                                    <i class="ri-whatsapp-fill"></i>
+                                    <br />
+                                    <h3>Hubungi Kami</h3>
+                                    <p><a>+6281344088899</><br><a>+6281344088899</></p>
                                 </div>
                             </div>
                         </div>
@@ -434,7 +406,6 @@
 
 
                                 <button type="button" title="Tutup" class="close-btn" data-bs-dismiss="modal" aria-label="Close">
-                                
                                 </button>
 
 
@@ -449,10 +420,10 @@
                                     </div>
 
                                     @*                                    <div class="d-flex">
-                <div class="mx-auto">
-                    <a href="#" class="btn btn-primary">Submit</a>
-                </div>
-            </div>*@
+                                            <div class="mx-auto">
+                                                <a href="#" class="btn btn-primary">Submit</a>
+                                            </div>
+                                        </div>*@
                                 </form>
 
                             </div>
@@ -462,18 +433,34 @@
                 </div>
             </div>
 
-</main><!-- End #main -->
+    </main><!-- End #main -->
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
 
         <div class="container">
             <div class="copyright">
                 &copy; Copyright <strong><span>SEWANTUL 2022</span></strong>. All Rights Reserved
+
             </div>
 
         </div>
     </footer><!-- End Footer -->
+    <script>
+        function loadMapRawan() {
 
+            if (document.getElementById('rawanMap')) {
+
+                if (document.getElementById('rawanMap').style.display == 'none') {
+                    document.getElementById('rawanMap').style.display = 'block';
+                    document.getElementById('myMap').style.display = 'none';
+                }
+                else {
+                    document.getElementById('rawanMap').style.display = 'none';
+                    document.getElementById('myMap').style.display = 'block';
+                }
+            }
+        }
+    </script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
@@ -516,7 +503,21 @@
                     zoom: 11, center: new Microsoft.Maps.Location(-8.03646634600807, 110.40347242399436)
                 });
             });
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var loc = new Microsoft.Maps.Location(
+                    position.coords.latitude,
+                    position.coords.longitude);
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+                //Add a pushpin at the user's location.
+               // document.getElementById('long').innerHTML = position.coords.longitude;
+               // document.getElementById('latt').innerHTML = position.coords.latitude;
+                var pin = new Microsoft.Maps.Pushpin(loc);
+                map.entities.push(pin);
 
+                //Center the map on the user's location.
+                map.setView({ center: loc, zoom: 12 });
+            });
             var eyes = [
                 new Microsoft.Maps.Polygon([
                     new Microsoft.Maps.Location(-7.98342724879982, 110.20707172182316),
@@ -568,28 +569,14 @@
                 ], { fillColor: 'yellow' }),
             ];
 
-@*            Microsoft.Maps.loadModule('Microsoft.Maps.DrawingTools', function () {
+            Microsoft.Maps.loadModule('Microsoft.Maps.DrawingTools', function () {
                 var tools = new Microsoft.Maps.DrawingTools(map2);
                 tools.showDrawingManager(function (manager) {
                     manager.add(eyes);
                 });
-            });*@
-            //Request the user's location
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var loc = new Microsoft.Maps.Location(
-                    position.coords.latitude,
-                    position.coords.longitude);
-                console.log(position.coords.latitude);
-                console.log(position.coords.longitude);
-                //Add a pushpin at the user's location.
-                document.getElementById('long').innerHTML = position.coords.longitude;
-                document.getElementById('latt').innerHTML = position.coords.latitude;
-                var pin = new Microsoft.Maps.Pushpin(loc);
-                map.entities.push(pin);
-
-                //Center the map on the user's location.
-                map.setView({ center: loc, zoom: 12 });
             });
+            //Request the user's location
+
 
         }
 
@@ -619,4 +606,21 @@
         });
     </script>
     <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=LoadMap" async defer></script>
+
 </body>
+<script>
+    var latt = document.getElementById("latt");
+    var long = document.getElementById("long");
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            latt.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        latt.innerHTML = position.coords.latitude;
+        long.innerHTML = position.coords.longitude;
+    }
+</script>
